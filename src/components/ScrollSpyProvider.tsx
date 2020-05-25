@@ -5,7 +5,7 @@ interface ScrollSpyState {
 }
 
 interface ScrollSpyActions {
-  addElem: (ref: React.RefObject<any>, title: string) => void
+  addNode: (instance: HTMLDivElement | null) => void
 }
 
 interface ScrollSpyContextType extends ScrollSpyState, ScrollSpyActions {}
@@ -26,22 +26,35 @@ export default function ScrollSpyProvider({
     elements: [],
   })
 
+  // We memorize the state & actions to prevent occasional unnecessary rerenders
   const value: ScrollSpyContextType = React.useMemo(
     () => ({
       ...state,
-      addElem: (ref: React.RefObject<any>, title: string): void => {
-        setState((state) => ({
-          ...state,
-          elements: [...state.elements, { ref, title }],
-        }))
+      // Because we can pass in a function as a 'ref' we can use this function
+      // to add the node to the observer tree
+      addNode: (instance: HTMLDivElement | null): void => {
+        console.log(instance)
       },
     }),
     [state],
   )
+
+  // console.log(state.elements)
 
   return (
     <ScrollSpyContext.Provider value={value}>
       {children}
     </ScrollSpyContext.Provider>
   )
+}
+
+export const useScrollSpyState = () => {
+  const context = React.useContext(ScrollSpyContext)
+  if (!context) {
+    throw new Error(
+      'useScrollSpyState must be used within the ScorllSpyProvider',
+    )
+  }
+
+  return context
 }

@@ -1,7 +1,13 @@
 import React from 'react'
+import ScrollSpyProvider from './components/ScrollSpyProvider'
+import HelloWorld from './components/HelloWorld'
 
 function App() {
-  return <div>hello world!</div>
+  return (
+    <ScrollSpyProvider>
+      <HelloWorld />
+    </ScrollSpyProvider>
+  )
 }
 
 export default App
