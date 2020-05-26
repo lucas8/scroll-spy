@@ -1,16 +1,18 @@
 import React from 'react'
-import { getTitleFromAttributes } from './utils'
+import { getTitleFromAttributes, getTopicFromAttributes } from './utils'
 
 interface ScrollNode {
   title: string
   entry: IntersectionObserverEntry
   id: string
+  topic?: string
 }
 
 interface ScrollItem {
   title: string
   id: string
   isActive: boolean
+  topic?: string
 }
 
 interface ScrollSpyState {
@@ -53,6 +55,7 @@ export default function ScrollSpyProvider({
             entry,
             title: getTitleFromAttributes(entry.target),
             id: entry.target.id,
+            topic: getTopicFromAttributes(entry.target),
           })
           setNodes((nodes) =>
             nodes.map((n) =>
@@ -91,6 +94,7 @@ export default function ScrollSpyProvider({
               title: getTitleFromAttributes(instance),
               id: instance.id,
               isActive: false,
+              topic: getTopicFromAttributes(instance),
             },
           ])
         }
@@ -120,7 +124,7 @@ export const useScrollSpy = () => {
   return context.addNode
 }
 
-export const useScrollSpyState = (): ScrollSpyState => {
+export const useScrollSpyState = () => {
   const context = React.useContext(ScrollSpyContext)
   if (!context) {
     throw new Error(
@@ -128,5 +132,14 @@ export const useScrollSpyState = (): ScrollSpyState => {
     )
   }
 
-  return context
+  return {
+    ...context,
+    sortedNodes: context.nodes.reduce((obj: any, item) => {
+      let arr = obj[item.topic || 'unsorted'] || []
+      return {
+        ...obj,
+        [item.topic || 'unsorted']: [...arr, item],
+      }
+    }, {}),
+  }
 }

@@ -2,18 +2,21 @@ import React from 'react'
 import ScrollSpyProvider from './components/ScrollSpyProvider'
 import ScrollSpyComponent from './components/ScrollSpyComponent'
 import Navbar from './components/Navbar'
+import ScrollSpyTopic from './components/ScrollSpyTopic'
 import './App.css'
 
 function App() {
   return (
     <ScrollSpyProvider>
       <Navbar />
-      <ScrollSpyComponent id="a" title="a">
-        <div style={{ height: '100vh', background: 'red' }}>a</div>
-      </ScrollSpyComponent>
-      <ScrollSpyComponent id="b" title="b">
-        <div style={{ height: '100vh', background: 'blue' }}>b</div>
-      </ScrollSpyComponent>
+      <ScrollSpyTopic topic="Prep">
+        <ScrollSpyComponent id="a" title="a">
+          <div style={{ height: '100vh', background: 'red' }}>a</div>
+        </ScrollSpyComponent>
+        <ScrollSpyComponent id="b" title="b">
+          <div style={{ height: '100vh', background: 'blue' }}>b</div>
+        </ScrollSpyComponent>
+      </ScrollSpyTopic>
       <ScrollSpyComponent id="c" title="c">
         <div style={{ height: '100vh', background: 'skyblue' }}>c</div>
       </ScrollSpyComponent>
