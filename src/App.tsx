@@ -2,6 +2,7 @@ import React from 'react'
 import ScrollSpyProvider from './components/ScrollSpyProvider'
 import ScrollSpyComponent from './components/ScrollSpyComponent'
 import Navbar from './components/Navbar'
+import './App.css'
 
 function App() {
   return (

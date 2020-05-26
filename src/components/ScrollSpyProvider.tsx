@@ -25,6 +25,7 @@ interface ScrollSpyProviderProps {
   // The threshold is a number from 0-1 indicating how much the child should be
   // in view before becoming the current node
   threshold?: number
+  options?: IntersectionObserverInit
 }
 
 const ScrollSpyContext = React.createContext<ScrollSpyState | undefined>(
@@ -33,7 +34,7 @@ const ScrollSpyContext = React.createContext<ScrollSpyState | undefined>(
 
 export default function ScrollSpyProvider({
   children,
-  threshold = 0.5,
+  options = { threshold: 0.5 },
 }: ScrollSpyProviderProps) {
   const [currentNode, setCurrentNode] = React.useState<ScrollNode | null>(null)
   const [nodes, setNodes] = React.useState<ScrollItem[]>([])
@@ -41,33 +42,28 @@ export default function ScrollSpyProvider({
   // We want the IntersectionObserver inside a useRef because it will
   // not trigger a rerender unlike useState
   const { current: currentObserver } = React.useRef(
-    new window.IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // If the entry past the threshold, set it as the current node
-          if (entry.intersectionRatio > threshold) {
-            // This may not work on older browsers, but pushState doesnt
-            // trigger a hashchange which would cause a jumping
-            window.history.pushState(null, '', `#${entry.target.id}`)
-            setCurrentNode({
-              entry,
-              title: getTitleFromAttributes(entry.target),
-              id: entry.target.id,
-            })
-            setNodes((nodes) =>
-              nodes.map((n) =>
-                n.id === entry.target.id
-                  ? { ...n, isActive: true }
-                  : { ...n, isActive: false },
-              ),
-            )
-          }
-        })
-      },
-      {
-        threshold,
-      },
-    ),
+    new window.IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // If the entry past the threshold, set it as the current node
+        if (entry.intersectionRatio > (options.threshold || 0.5)) {
+          // This may not work on older browsers, but pushState doesnt
+          // trigger a hashchange which would cause a jumping
+          window.history.pushState(null, '', `#${entry.target.id}`)
+          setCurrentNode({
+            entry,
+            title: getTitleFromAttributes(entry.target),
+            id: entry.target.id,
+          })
+          setNodes((nodes) =>
+            nodes.map((n) =>
+              n.id === entry.target.id
+                ? { ...n, isActive: true }
+                : { ...n, isActive: false },
+            ),
+          )
+        }
+      })
+    }, options),
   )
 
   // We need to seperate the state from the actions because we dont want
@@ -124,7 +120,7 @@ export const useScrollSpy = () => {
   return context.addNode
 }
 
-export const useScrollSpyState = () => {
+export const useScrollSpyState = (): ScrollSpyState => {
   const context = React.useContext(ScrollSpyContext)
   if (!context) {
     throw new Error(
