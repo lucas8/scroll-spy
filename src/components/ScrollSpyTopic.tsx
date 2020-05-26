@@ -1,5 +1,16 @@
 import React from 'react'
-import { ScrollSpyComponentProps } from './ScrollSpyComponent'
+
+interface ScrollSpyComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
+  children?: React.ReactNode
+  title: string
+  id: string
+  inheritedTopic?: string
+  parentTopic?: string
+}
 
 interface ScrollSpyTopicProps {
   children?: React.ReactNode
@@ -10,7 +21,7 @@ interface ScrollSpyTopicProps {
 export default function ScrollSpyTopic({
   children,
   topic,
-  inheritedTopic,
+  inheritedTopic
 }: ScrollSpyTopicProps) {
   const childrenWithTopic = React.Children.map(children, (child) => {
     if (!React.isValidElement<ScrollSpyComponentProps>(child)) {
@@ -18,7 +29,7 @@ export default function ScrollSpyTopic({
     }
     return React.cloneElement(child, {
       inheritedTopic: topic,
-      parentTopic: inheritedTopic,
+      parentTopic: inheritedTopic
     })
   })
 

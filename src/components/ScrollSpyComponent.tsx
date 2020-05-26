@@ -1,7 +1,7 @@
 import React from 'react'
 import { useScrollSpy } from './ScrollSpyProvider'
 
-export interface ScrollSpyComponentProps
+interface ScrollSpyComponentProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement

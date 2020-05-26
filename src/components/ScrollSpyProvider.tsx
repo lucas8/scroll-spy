@@ -1,7 +1,7 @@
 import React from 'react'
 import { getTitleFromAttributes, getTopicFromAttributes } from './utils'
 
-export interface ScrollItem {
+interface ScrollItem {
   title: string
   id: string
   isActive: boolean
@@ -9,7 +9,7 @@ export interface ScrollItem {
   parent?: string
 }
 
-export interface Tree {
+interface Tree {
   unsorted: ScrollItem[]
   [key: string]: any
 }

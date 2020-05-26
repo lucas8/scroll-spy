@@ -1,15 +1,15 @@
 import React from 'react'
-import { useScrollSpyState, ScrollItem } from './ScrollSpyProvider'
+import { useScrollSpyState } from 'scroll-spy'
 
-function recursivelyRenderTree(arr: [any]) {
-  return arr.map((node: ScrollItem) => {
+function renderArr(arr) {
+  return arr.map((node) => {
     return (
       <li>
         <a
           key={node.id}
           style={{
             display: 'block',
-            fontWeight: node.isActive ? 'bold' : 'normal',
+            fontWeight: node.isActive ? 'bold' : 'normal'
           }}
           href={`#${node.id}`}
         >
@@ -31,14 +31,15 @@ export default function Navbar() {
         position: 'fixed',
         top: 0,
         right: 0,
-        width: 500,
+        width: 500
       }}
     >
       {Object.keys(sortedNodeTree).map((topic) => {
         // This is all of the unsorted arrays, first layer of arrays
         if (Array.isArray(sortedNodeTree[topic])) {
-          return recursivelyRenderTree(sortedNodeTree[topic])
+          return renderArr(sortedNodeTree[topic])
         } else {
+          // We then rendering the parent and topic
           return (
             <div>
               <h3>{topic}</h3>
@@ -49,16 +50,16 @@ export default function Navbar() {
                       <h3
                         style={{
                           fontWeight: sortedNodeTree[topic][nestedTopic].some(
-                            (n: any) => n.isActive,
+                            (n) => n.isActive
                           )
                             ? 'bold'
-                            : 'normal',
+                            : 'normal'
                         }}
                       >
                         {nestedTopic}
                       </h3>
                     )}
-                    {recursivelyRenderTree(sortedNodeTree[topic][nestedTopic])}
+                    {renderArr(sortedNodeTree[topic][nestedTopic])}
                   </ul>
                 )
               })}
