@@ -1,8 +1,16 @@
 import React from 'react'
 import { useScrollSpyState } from './ScrollSpyProvider'
 
-export default function HelloWorld() {
-  const { addNode: ref } = useScrollSpyState()
+interface Props {
+  children: React.ReactNode
+}
 
-  return <div ref={ref}>hello world</div>
+export default function HelloWorld({ children }: Props) {
+  const [ref] = useScrollSpyState()
+
+  return (
+    <div ref={ref} style={{ height: '100vh', background: 'red' }}>
+      {children}
+    </div>
+  )
 }
