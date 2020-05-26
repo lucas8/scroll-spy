@@ -1,24 +1,23 @@
 import React from 'react'
 import { getTitleFromAttributes, getTopicFromAttributes } from './utils'
 
-interface ScrollNode {
-  title: string
-  entry: IntersectionObserverEntry
-  id: string
-  topic?: string
-}
-
-interface ScrollItem {
+export interface ScrollItem {
   title: string
   id: string
   isActive: boolean
   topic?: string
+  parent?: string
+}
+
+export interface Tree {
+  unsorted: ScrollItem[]
+  [key: string]: any
 }
 
 interface ScrollSpyState {
-  currentNode: ScrollNode | null
-  nodes: ScrollItem[]
   addNode: (instance: HTMLDivElement | null) => void
+  nodes: ScrollItem[]
+  sortedNodeTree: Tree
 }
 
 interface ScrollSpyProviderProps {
@@ -38,7 +37,6 @@ export default function ScrollSpyProvider({
   children,
   options = { threshold: 0.5 },
 }: ScrollSpyProviderProps) {
-  const [currentNode, setCurrentNode] = React.useState<ScrollNode | null>(null)
   const [nodes, setNodes] = React.useState<ScrollItem[]>([])
 
   // We want the IntersectionObserver inside a useRef because it will
@@ -51,12 +49,6 @@ export default function ScrollSpyProvider({
           // This may not work on older browsers, but pushState doesnt
           // trigger a hashchange which would cause a jumping
           window.history.pushState(null, '', `#${entry.target.id}`)
-          setCurrentNode({
-            entry,
-            title: getTitleFromAttributes(entry.target),
-            id: entry.target.id,
-            topic: getTopicFromAttributes(entry.target),
-          })
           setNodes((nodes) =>
             nodes.map((n) =>
               n.id === entry.target.id
@@ -73,10 +65,30 @@ export default function ScrollSpyProvider({
   // addNode to update everytime currentNode or nodes updates
   const state = React.useMemo(
     () => ({
-      currentNode,
       nodes,
+      // This tree implementation is a little complex, but it consolidate repeated
+      // topics and supports up to 2 levels of depth
+      sortedNodeTree: nodes.reduce((obj: any, item) => {
+        if (item.parent) {
+          const parentObj = obj[item.parent] || {}
+          const arr = parentObj[item.topic || 'unsorted'] || []
+          return {
+            ...obj,
+            [item.parent]: {
+              ...parentObj,
+              [item.topic || 'unsorted']: [...arr, item],
+            },
+          }
+        } else {
+          const arr = obj[item.topic || 'unsorted'] || []
+          return {
+            ...obj,
+            [item.topic || 'unsorted']: [...arr, item],
+          }
+        }
+      }, {}),
     }),
-    [currentNode, nodes],
+    [nodes],
   )
 
   // We memorize the state & actions to prevent occasional unnecessary rerenders
@@ -95,6 +107,7 @@ export default function ScrollSpyProvider({
               id: instance.id,
               isActive: false,
               topic: getTopicFromAttributes(instance),
+              parent: getTopicFromAttributes(instance, 'data-parent-topic'),
             },
           ])
         }
@@ -132,14 +145,5 @@ export const useScrollSpyState = () => {
     )
   }
 
-  return {
-    ...context,
-    sortedNodes: context.nodes.reduce((obj: any, item) => {
-      let arr = obj[item.topic || 'unsorted'] || []
-      return {
-        ...obj,
-        [item.topic || 'unsorted']: [...arr, item],
-      }
-    }, {}),
-  }
+  return context
 }

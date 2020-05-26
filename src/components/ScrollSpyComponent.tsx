@@ -9,14 +9,16 @@ export interface ScrollSpyComponentProps
   children?: React.ReactNode
   title: string
   id: string
-  topic?: string
+  inheritedTopic?: string
+  parentTopic?: string
 }
 
 export default function ScrollSpyComponent({
   children,
   title,
   id,
-  topic,
+  inheritedTopic,
+  parentTopic,
   ...rest
 }: ScrollSpyComponentProps) {
   const ref = useScrollSpy()
@@ -24,7 +26,14 @@ export default function ScrollSpyComponent({
   // Because the IntersectionObserver passes back a DOM node, not a
   // react one, we need to forward the data-title to pick back up in state
   return (
-    <div id={id} ref={ref} data-title={title} data-topic={topic} {...rest}>
+    <div
+      id={id}
+      ref={ref}
+      data-title={title}
+      data-topic={parentTopic ? inheritedTopic : undefined}
+      data-parent-topic={!parentTopic ? inheritedTopic : parentTopic}
+      {...rest}
+    >
       {children}
     </div>
   )

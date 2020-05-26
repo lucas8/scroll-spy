@@ -6,8 +6,9 @@ export const getTitleFromAttributes = (
 
 export const getTopicFromAttributes = (
   instance: HTMLDivElement | Element,
+  attr = 'data-topic',
 ): undefined | string => {
-  const attribute = instance.attributes.getNamedItem('data-topic')
+  const attribute = instance.attributes.getNamedItem(attr)
   if (attribute) {
     return attribute.value
   } else {
