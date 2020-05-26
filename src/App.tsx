@@ -7,10 +7,16 @@ function App() {
   return (
     <ScrollSpyProvider>
       <Navbar />
-      <ScrollSpyComponent id="a" title="a" key={1}>
+      <ScrollSpyComponent id="a" title="a">
         <div style={{ height: '100vh', background: 'red' }}>a</div>
       </ScrollSpyComponent>
-      <ScrollSpyComponent id="b" title="b" key={2}>
+      <ScrollSpyComponent id="b" title="b">
+        <div style={{ height: '100vh', background: 'blue' }}>b</div>
+      </ScrollSpyComponent>
+      <ScrollSpyComponent id="c" title="c">
+        <div style={{ height: '100vh', background: 'blue' }}>b</div>
+      </ScrollSpyComponent>
+      <ScrollSpyComponent id="d" title="d">
         <div style={{ height: '100vh', background: 'blue' }}>b</div>
       </ScrollSpyComponent>
     </ScrollSpyProvider>
