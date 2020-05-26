@@ -3,7 +3,6 @@ import { useScrollSpyState } from './ScrollSpyProvider'
 
 export default function Navbar() {
   const { nodes } = useScrollSpyState()
-  console.log(nodes)
   return (
     <div
       style={{
@@ -16,7 +15,7 @@ export default function Navbar() {
     >
       {nodes.map((node) => (
         <a
-          key={node.title}
+          key={node.id}
           style={{
             display: 'block',
             fontWeight: node.isActive ? 'bold' : 'normal',

@@ -45,6 +45,16 @@ export default function ScrollSpyProvider({
   const { current: currentObserver } = React.useRef(
     new window.IntersectionObserver(
       (entries) => {
+        // TODO: Optimise using new Set
+        setNodes(
+          entries.map((e) => {
+            return {
+              title: getTitleFromAttributes(e.target),
+              id: e.target.id,
+              isActive: e.intersectionRatio > threshold ? true : false,
+            }
+          }),
+        )
         entries.forEach((entry) => {
           // If the entry past the threshold, set it as the current node
           if (entry.intersectionRatio > threshold) {
@@ -56,12 +66,14 @@ export default function ScrollSpyProvider({
               title: getTitleFromAttributes(entry.target),
               id: entry.target.id,
             })
-            setNodes((nodes) =>
-              nodes.map((n) =>
-                n.id === entry.target.id
-                  ? { ...n, isActive: true }
-                  : { ...n, isActive: false },
-              ),
+            console.log(
+              entries.map((e) => {
+                return {
+                  title: getTitleFromAttributes(entry.target),
+                  id: entry.target.id,
+                  isActive: e.target.id === entry.target.id ? true : false,
+                }
+              }),
             )
           }
         })
@@ -103,12 +115,8 @@ export default function ScrollSpyProvider({
         }
       },
     }),
-    [],
+    [currentObserver],
   )
-
-  React.useEffect(() => {
-    console.log(currentNode)
-  }, [currentNode])
 
   // Cleanup
   React.useEffect(() => {
