@@ -109,7 +109,7 @@ export default function ScrollSpyProvider({
   // Cleanup
   React.useEffect(() => {
     return () => currentObserver.disconnect()
-  }, [])
+  }, [currentObserver])
 
   return (
     <ScrollSpyContext.Provider value={{ ...state, ...actions }}>
