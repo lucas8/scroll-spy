@@ -18,6 +18,17 @@
     "test:open": "cypress open",
     "eject": "react-scripts eject"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn test"
+    }
+  },
+  "lint-staged": {
+    "**/*.+(js|json|css|html|md)": [
+      "prettier",
+      "git add"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -34,6 +45,9 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^4.6.0"
+    "cypress": "^4.6.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.6",
+    "prettier": "^2.0.5"
   }
 }
