@@ -27,8 +27,6 @@ interface ScrollSpyProviderProps {
   threshold?: number
 }
 
-// TODO: PREVENT SAME IDS
-
 const ScrollSpyContext = React.createContext<ScrollSpyState | undefined>(
   undefined,
 )
@@ -89,7 +87,6 @@ export default function ScrollSpyProvider({
       // to add the node to the observer 'tree'
       addNode: (instance: HTMLDivElement | null): void => {
         if (instance) {
-          // TODO: Update hash
           currentObserver.observe(instance)
 
           setNodes((prevNodes) => [
@@ -121,9 +118,7 @@ export default function ScrollSpyProvider({
 export const useScrollSpy = () => {
   const context = React.useContext(ScrollSpyContext)
   if (!context) {
-    throw new Error(
-      'useScrollSpyState must be used within the ScrollSpyProvider',
-    )
+    throw new Error('useScrollSpy must be used within the ScrollSpyProvider')
   }
 
   return context.addNode
