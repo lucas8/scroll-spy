@@ -2,7 +2,7 @@
 
 > Created as a submission for the primer frontend take-home
 
-<img src='./screenshot.png'/>
+<img src='./screenshot.gif'/>
 
 ## Examples
 
