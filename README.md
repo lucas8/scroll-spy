@@ -6,9 +6,21 @@
 
 ## Examples
 
-_Note: In Codesandbox the clicking on links and HMR can cause errors not related to scroll-spy_
-
 - Basic Nav - [Live](https://lucas8.github.io/scroll-spy) - [Source](./example)
+
+## Starting the Library
+
+```bash
+$ yarn install
+# or
+$ npm install
+```
+
+```bash
+yarn start
+# in a different terminal window
+cd example && yarn install && yarn start
+```
 
 ## Installation
 
