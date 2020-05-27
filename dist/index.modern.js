@@ -88,7 +88,7 @@ const useScrollSpyState = () => {
   return context;
 };
 
-function ScrollSpyComponent({
+function Section({
   children,
   title,
   id,
@@ -125,5 +125,5 @@ function Topic({
   return React.createElement("div", null, childrenWithTopic);
 }
 
-export { ScrollSpyProvider, ScrollSpyComponent as Section, Topic, useScrollSpy, useScrollSpyState };
+export { ScrollSpyProvider, Section, Topic, useScrollSpy, useScrollSpyState };
 //# sourceMappingURL=index.modern.js.map

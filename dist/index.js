@@ -138,7 +138,7 @@ var useScrollSpyState = function useScrollSpyState() {
   return context;
 };
 
-function ScrollSpyComponent(_ref) {
+function Section(_ref) {
   var children = _ref.children,
       title = _ref.title,
       id = _ref.id,
@@ -177,7 +177,7 @@ function Topic(_ref) {
 }
 
 exports.ScrollSpyProvider = ScrollSpyProvider;
-exports.Section = ScrollSpyComponent;
+exports.Section = Section;
 exports.Topic = Topic;
 exports.useScrollSpy = useScrollSpy;
 exports.useScrollSpyState = useScrollSpyState;

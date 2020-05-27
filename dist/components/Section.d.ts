@@ -6,5 +6,5 @@ interface ScrollSpyComponentProps extends React.DetailedHTMLProps<React.HTMLAttr
     inheritedTopic?: string;
     parentTopic?: string;
 }
-export default function ScrollSpyComponent({ children, title, id, inheritedTopic, parentTopic, ...rest }: ScrollSpyComponentProps): JSX.Element;
+export default function Section({ children, title, id, inheritedTopic, parentTopic, ...rest }: ScrollSpyComponentProps): JSX.Element;
 export {};

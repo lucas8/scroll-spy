@@ -13,7 +13,7 @@ interface ScrollSpyComponentProps
   parentTopic?: string
 }
 
-export default function ScrollSpyComponent({
+export default function Section({
   children,
   title,
   id,
