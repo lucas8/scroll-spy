@@ -28,7 +28,7 @@ You are able to pass in [options](https://developer.mozilla.org/en-US/docs/Web/A
 
 ```js
 import React from 'react'
-import { ScrollSpyProvider } from 'scroll-spy'
+import { ScrollSpyProvider, Section, Topic } from 'scroll-spy'
 
 function App() (
   <ScrollSpyProvider>
@@ -47,11 +47,9 @@ eg. http://localhost:3000/#my-new-section.
 The `title` is the string that will be added to the observation tree and can be accessed later on using `useSpyScrollState`.
 
 ```js
-function App() (
-  <Section id="my-new-section" title="My New Section">
-    <h1>My new section</h1>
-  </Section>
-)
+<Section id='my-new-section' title='My New Section'>
+  <h1>My new section</h1>
+</Section>
 ```
 
 #### Make your own scroll component
@@ -69,5 +67,11 @@ const ref = useSpyScroll()
 You can use the `<Topic />` component to declare a topic. Topics stack up to 2 layers of depth, which means you can have a topic & subtopic.
 
 ```js
-<Topic name='Information'> </Topic>
+<Topic name='Information'>
+  <Topic name='details'>
+    <Section id='my-new-section' title='My New Section'>
+      {/* */}
+    </Section>
+  </Topic>
+</Topic>
 ```
