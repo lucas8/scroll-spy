@@ -1,8 +1,2 @@
-import React from 'react';
-interface ScrollSpyTopicProps {
-    children?: React.ReactNode;
-    name: string;
-    inheritedTopic?: string;
-}
+/// <reference types="react" />
 export default function Topic({ children, name, inheritedTopic }: ScrollSpyTopicProps): JSX.Element;
-export {};

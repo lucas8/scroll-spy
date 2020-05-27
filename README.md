@@ -6,11 +6,13 @@
 
 ## Examples
 
-- Basic Nav - [Live](https://lucas8.github.io/scroll-spy) - [Source](./example)
+_Note: In Codesandbox the clicking on links and HMR can cause errors not related to scroll-spy_
+
+- Basic Nav - [Live](https://lucas8.github.io/scroll-spy) - [Source](./example) - [Codesandbox](https://codesandbox.io/s/scroll-spy-demo-pbnnf)
 
 ## Installation
 
-Note: This doesn't actually work because the package is not on npm.
+_Note: This doesn't actually work because the package is not on npm. But feel free to copy the component directory into your own projects_
 
 ```bash
 $ npm i --save scroll-spy

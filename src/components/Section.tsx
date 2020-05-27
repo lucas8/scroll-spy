@@ -1,18 +1,6 @@
 import React from 'react'
 import { useScrollSpy } from './ScrollSpyProvider'
 
-interface ScrollSpyComponentProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
-  children?: React.ReactNode
-  title: string
-  id: string
-  inheritedTopic?: string
-  parentTopic?: string
-}
-
 export default function Section({
   children,
   title,
@@ -20,7 +8,7 @@ export default function Section({
   inheritedTopic,
   parentTopic,
   ...rest
-}: ScrollSpyComponentProps) {
+}: ScrollSpyTopicSectionProps) {
   const addNode = useScrollSpy()
 
   // Because the IntersectionObserver passes back a DOM node, not a
