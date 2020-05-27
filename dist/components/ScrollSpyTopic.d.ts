@@ -4,5 +4,5 @@ interface ScrollSpyTopicProps {
     topic: string;
     inheritedTopic?: string;
 }
-export default function ScrollSpyTopic({ children, topic, inheritedTopic }: ScrollSpyTopicProps): JSX.Element;
-export {};
+declare const _default: React.NamedExoticComponent<ScrollSpyTopicProps>;
+export default _default;

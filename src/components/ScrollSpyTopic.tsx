@@ -18,7 +18,7 @@ interface ScrollSpyTopicProps {
   inheritedTopic?: string
 }
 
-export default function ScrollSpyTopic({
+export default React.memo(function ScrollSpyTopic({
   children,
   topic,
   inheritedTopic
@@ -34,4 +34,4 @@ export default function ScrollSpyTopic({
   })
 
   return <div>{childrenWithTopic}</div>
-}
+})

@@ -35,24 +35,8 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var getTitleFromAttributes = function getTitleFromAttributes(instance) {
-  return instance.attributes.getNamedItem('data-title').value || 'Undefined';
-};
-var getTopicFromAttributes = function getTopicFromAttributes(instance, attr) {
-  if (attr === void 0) {
-    attr = 'data-topic';
-  }
-
-  var attribute = instance.attributes.getNamedItem(attr);
-
-  if (attribute) {
-    return attribute.value;
-  } else {
-    return undefined;
-  }
-};
-
 var ScrollSpyContext = React.createContext(undefined);
+var ScrollSpyActions = React.createContext(undefined);
 function ScrollSpyProvider(_ref) {
   var children = _ref.children,
       _ref$options = _ref.options,
@@ -104,16 +88,20 @@ function ScrollSpyProvider(_ref) {
   }, [nodes]);
   var actions = React.useMemo(function () {
     return {
-      addNode: function addNode(instance) {
+      addNode: function addNode(instance, _ref2) {
+        var title = _ref2.title,
+            parentTopic = _ref2.parentTopic,
+            topic = _ref2.topic;
+
         if (instance) {
           currentObserver.observe(instance);
-          setNodes(function (prevNodes) {
-            return [].concat(prevNodes, [{
-              title: getTitleFromAttributes(instance),
+          setNodes(function (nodes) {
+            return [].concat(nodes, [{
+              title: title,
               id: instance.id,
               isActive: false,
-              topic: getTopicFromAttributes(instance),
-              parent: getTopicFromAttributes(instance, 'data-parent-topic')
+              topic: topic,
+              parent: parentTopic
             }]);
           });
         }
@@ -126,11 +114,13 @@ function ScrollSpyProvider(_ref) {
     };
   }, [currentObserver]);
   return React.createElement(ScrollSpyContext.Provider, {
-    value: _extends({}, state, actions)
-  }, children);
+    value: state
+  }, React.createElement(ScrollSpyActions.Provider, {
+    value: actions
+  }, children));
 }
 var useScrollSpy = function useScrollSpy() {
-  var context = React.useContext(ScrollSpyContext);
+  var context = React.useContext(ScrollSpyActions);
 
   if (!context) {
     throw new Error('useScrollSpy must be used within the ScrollSpyProvider');
@@ -156,17 +146,20 @@ function ScrollSpyComponent(_ref) {
       parentTopic = _ref.parentTopic,
       rest = _objectWithoutPropertiesLoose(_ref, ["children", "title", "id", "inheritedTopic", "parentTopic"]);
 
-  var ref = useScrollSpy();
+  var addNode = useScrollSpy();
   return React.createElement("div", Object.assign({
     id: id,
-    ref: ref,
-    "data-title": title,
-    "data-topic": parentTopic ? inheritedTopic : undefined,
-    "data-parent-topic": !parentTopic ? inheritedTopic : parentTopic
+    ref: function ref(instance) {
+      return addNode(instance, {
+        title: title,
+        topic: inheritedTopic,
+        parentTopic: parentTopic
+      });
+    }
   }, rest), children);
 }
 
-function ScrollSpyTopic(_ref) {
+var ScrollSpyTopic = React.memo(function ScrollSpyTopic(_ref) {
   var children = _ref.children,
       topic = _ref.topic,
       inheritedTopic = _ref.inheritedTopic;
@@ -181,7 +174,7 @@ function ScrollSpyTopic(_ref) {
     });
   });
   return React.createElement("div", null, childrenWithTopic);
-}
+});
 
 exports.ScrollSpyComponent = ScrollSpyComponent;
 exports.ScrollSpyProvider = ScrollSpyProvider;
