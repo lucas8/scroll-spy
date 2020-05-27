@@ -16,7 +16,7 @@
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepublish": "run-s build",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "yarn predeploy && gh-pages -d example/build"
   },
   "peerDependencies": {
     "react": "^16.0.0"

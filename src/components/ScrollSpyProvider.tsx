@@ -61,6 +61,8 @@ export default function ScrollSpyProvider({
           // This may not work on older browsers, but pushState doesnt
           // trigger a hashchange which would cause a jumping
           window.history.pushState(null, '', `#${entry.target.id}`)
+
+          // Update node that is currently past the threshold
           setNodes((nodes) =>
             nodes.map((n) =>
               n.id === entry.target.id
@@ -121,8 +123,8 @@ export default function ScrollSpyProvider({
               title,
               id: instance.id,
               isActive: false,
-              topic,
-              parent: parentTopic
+              topic: parentTopic ? topic : undefined,
+              parent: !parentTopic ? topic : parentTopic
             }
           ])
         }

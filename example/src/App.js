@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  ScrollSpyProvider,
-  ScrollSpyComponent,
-  ScrollSpyTopic
-} from 'scroll-spy'
+import { ScrollSpyProvider, Section, Topic } from 'scroll-spy'
 import Navbar from './components/Navbar'
 import './App.css'
 
@@ -17,32 +13,32 @@ function App() {
   return (
     <ScrollSpyProvider>
       <Navbar />
-      <ScrollSpyTopic topic='Introduction'>
-        <ScrollSpyTopic topic='Prepare'>
-          <ScrollSpyComponent
-            id='get-your-supplies'
-            title='Get your supplies ready'
-          >
+      <Topic name='Introduction'>
+        <Section id='welcome' title='Welcome!'>
+          <ExampleContent color='purple'>Welcome!</ExampleContent>
+        </Section>
+        <Topic name='Prepare'>
+          <Section id='get-your-supplies' title='Get your supplies ready'>
             <ExampleContent color='navy'>
               Get your supplies ready
             </ExampleContent>
-          </ScrollSpyComponent>
-          <ScrollSpyComponent id='watch-mars-base' title='Watch: Mars Base'>
+          </Section>
+          <Section id='watch-mars-base' title='Watch: Mars Base'>
             <ExampleContent color='blue'>Watch this video</ExampleContent>
-          </ScrollSpyComponent>
-          <ScrollSpyComponent id='read-space-suits' title='Read space suits'>
+          </Section>
+          <Section id='read-space-suits' title='Read space suits'>
             <ExampleContent color='aqua'>Read space suits</ExampleContent>
-          </ScrollSpyComponent>
-        </ScrollSpyTopic>
-        <ScrollSpyTopic topic='Design your repair kit'>
-          <ScrollSpyComponent
-            id='gather-materials'
-            title='Gather your materials'
-          >
+          </Section>
+        </Topic>
+        <Topic name='Design your repair kit'>
+          <Section id='gather-materials' title='Gather your materials'>
             <ExampleContent color='teal'>Gather your materials</ExampleContent>
-          </ScrollSpyComponent>
-        </ScrollSpyTopic>
-      </ScrollSpyTopic>
+          </Section>
+        </Topic>
+      </Topic>
+      <Section id='goodbye' title='Goodbye!'>
+        <ExampleContent color='red'>Byee!</ExampleContent>
+      </Section>
     </ScrollSpyProvider>
   )
 }

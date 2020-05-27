@@ -14,13 +14,13 @@ interface ScrollSpyComponentProps
 
 interface ScrollSpyTopicProps {
   children?: React.ReactNode
-  topic: string
+  name: string
   inheritedTopic?: string
 }
 
-export default React.memo(function ScrollSpyTopic({
+export default function Topic({
   children,
-  topic,
+  name,
   inheritedTopic
 }: ScrollSpyTopicProps) {
   const childrenWithTopic = React.Children.map(children, (child) => {
@@ -28,10 +28,10 @@ export default React.memo(function ScrollSpyTopic({
       return child
     }
     return React.cloneElement(child, {
-      inheritedTopic: topic,
+      inheritedTopic: name,
       parentTopic: inheritedTopic
     })
   })
 
   return <div>{childrenWithTopic}</div>
-})
+}

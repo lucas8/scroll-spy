@@ -29,7 +29,11 @@ export default function ScrollSpyComponent({
     <div
       id={id}
       ref={(instance) =>
-        addNode(instance, { title, topic: inheritedTopic, parentTopic })
+        addNode(instance, {
+          title,
+          topic: inheritedTopic,
+          parentTopic: parentTopic
+        })
       }
       {...rest}
     >

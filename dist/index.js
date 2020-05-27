@@ -100,8 +100,8 @@ function ScrollSpyProvider(_ref) {
               title: title,
               id: instance.id,
               isActive: false,
-              topic: topic,
-              parent: parentTopic
+              topic: parentTopic ? topic : undefined,
+              parent: !parentTopic ? topic : parentTopic
             }]);
           });
         }
@@ -159,9 +159,9 @@ function ScrollSpyComponent(_ref) {
   }, rest), children);
 }
 
-var ScrollSpyTopic = React.memo(function ScrollSpyTopic(_ref) {
+function Topic(_ref) {
   var children = _ref.children,
-      topic = _ref.topic,
+      name = _ref.name,
       inheritedTopic = _ref.inheritedTopic;
   var childrenWithTopic = React.Children.map(children, function (child) {
     if (!React.isValidElement(child)) {
@@ -169,16 +169,16 @@ var ScrollSpyTopic = React.memo(function ScrollSpyTopic(_ref) {
     }
 
     return React.cloneElement(child, {
-      inheritedTopic: topic,
+      inheritedTopic: name,
       parentTopic: inheritedTopic
     });
   });
   return React.createElement("div", null, childrenWithTopic);
-});
+}
 
-exports.ScrollSpyComponent = ScrollSpyComponent;
 exports.ScrollSpyProvider = ScrollSpyProvider;
-exports.ScrollSpyTopic = ScrollSpyTopic;
+exports.Section = ScrollSpyComponent;
+exports.Topic = Topic;
 exports.useScrollSpy = useScrollSpy;
 exports.useScrollSpyState = useScrollSpyState;
 //# sourceMappingURL=index.js.map

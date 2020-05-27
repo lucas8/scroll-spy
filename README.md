@@ -2,6 +2,8 @@
 
 > Created as a submission for the primer frontend take-home
 
+<img src='./screenshot.png'/>
+
 ## Examples
 
 - Basic Nav - [Live](https://lucas8.github.io/scroll-spy) - [Source](./example)
@@ -30,7 +32,7 @@ import { ScrollSpyProvider } from 'scroll-spy'
 
 function App() (
   <ScrollSpyProvider>
-    <h1>Hello World!</h1>
+    {/* ... */}
   </ScrollSpyProvider>
 )
 ```
@@ -46,14 +48,26 @@ The `title` is the string that will be added to the observation tree and can be 
 
 ```js
 function App() (
-  <ScrollSpyComponent id="my-new-section" title="My New Section">
+  <Section id="my-new-section" title="My New Section">
     <h1>My new section</h1>
-  </ScrollSpyComponent>
+  </Section>
 )
 ```
 
-### Making your own scroll component
+#### Make your own scroll component
 
 You can make your own scroll component using the exposed `useSpyScroll` hook, which you can pass in as a hook value and will be added to the tree as well.
 
-Remember to add the `data-title`, `data-parent` and `data-topic` params as well, for
+```js
+const ref = useSpyScroll()
+
+<div id={id} ref={(i) => ref(i, {title: "My New Section", topic: "Intro to Elixir"})}></div>
+```
+
+### Topics!
+
+You can use the `<Topic />` component to declare a topic. Topics stack up to 2 layers of depth, which means you can have a topic & subtopic.
+
+```js
+<Topic name='Information'> </Topic>
+```
