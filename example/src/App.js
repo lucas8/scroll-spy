@@ -5,6 +5,13 @@ import {
   ScrollSpyTopic
 } from 'scroll-spy'
 import Navbar from './components/Navbar'
+import './App.css'
+
+const ExampleContent = ({ children, color }) => (
+  <div style={{ background: `var(--color-${color})`, height: '100vh' }}>
+    <h1>{children}</h1>
+  </div>
+)
 
 function App() {
   return (
@@ -16,19 +23,15 @@ function App() {
             id='get-your-supplies'
             title='Get your supplies ready'
           >
-            <div style={{ background: 'red', height: '100vh' }}>
+            <ExampleContent color='navy'>
               Get your supplies ready
-            </div>
+            </ExampleContent>
           </ScrollSpyComponent>
           <ScrollSpyComponent id='watch-mars-base' title='Watch: Mars Base'>
-            <div style={{ background: 'purple', height: '100vh' }}>
-              Watch this video
-            </div>
+            <ExampleContent color='blue'>Watch this video</ExampleContent>
           </ScrollSpyComponent>
           <ScrollSpyComponent id='read-space-suits' title='Read space suits'>
-            <div style={{ background: 'blue', height: '100vh' }}>
-              Read space suits
-            </div>
+            <ExampleContent color='aqua'>Read space suits</ExampleContent>
           </ScrollSpyComponent>
         </ScrollSpyTopic>
         <ScrollSpyTopic topic='Design your repair kit'>
@@ -36,9 +39,7 @@ function App() {
             id='gather-materials'
             title='Gather your materials'
           >
-            <div style={{ background: 'violet', height: '100vh' }}>
-              Gather your materials
-            </div>
+            <ExampleContent color='teal'>Gather your materials</ExampleContent>
           </ScrollSpyComponent>
         </ScrollSpyTopic>
       </ScrollSpyTopic>

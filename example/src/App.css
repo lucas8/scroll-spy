@@ -1,0 +1,40 @@
+:root {
+  --color-navy: #001f3f;
+  --color-blue: #0074d9;
+  --color-aqua: #7fdbff;
+  --color-teal: #39cccc;
+  --color-fuchsia: #f012be;
+}
+
+ul {
+  list-style-type: none;
+  padding: 8px;
+}
+
+.navbar-container {
+  position: fixed;
+  background: #fff;
+  width: 275px;
+  top: 14px;
+  right: 14px;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  padding-left: 4px;
+}
+
+h2 {
+  font-weight: 800;
+}
+
+h1 {
+  color: #fff;
+  padding: 16px;
+}
