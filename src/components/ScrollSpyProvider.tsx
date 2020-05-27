@@ -22,10 +22,10 @@ export default function ScrollSpyProvider({
         // If the entry past the threshold, set it as the current node
         if (entry.intersectionRatio > (options.threshold || 0.5)) {
           // This may not work on older browsers, but pushState doesnt
-          // trigger a hashchange which would cause a jumping
+          // trigger a hashchange which would cause a jumping effect
           window.history.pushState(null, '', `#${entry.target.id}`)
 
-          // Update node that is currently past the threshold
+          // Update node to show it is currently past the threshold
           setNodes((nodes) =>
             nodes.map((n) =>
               n.id === entry.target.id
@@ -39,7 +39,7 @@ export default function ScrollSpyProvider({
   )
 
   // We need to seperate the state from the actions because we dont want
-  // addNode to update everytime currentNode or nodes updates
+  // addNode to update everytime nodes updates
   const state = React.useMemo(
     () => ({
       nodes,

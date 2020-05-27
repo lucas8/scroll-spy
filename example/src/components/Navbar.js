@@ -32,7 +32,7 @@ export default function Navbar() {
           if (Array.isArray(sortedNodeTree[topic])) {
             return renderArr(sortedNodeTree[topic])
           } else {
-            // We then rendering the parent and topic
+            // We then render the parent and topic
             return (
               <div key={topic}>
                 <h2>{topic}</h2>
