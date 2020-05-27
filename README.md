@@ -8,11 +8,11 @@
 
 _Note: In Codesandbox the clicking on links and HMR can cause errors not related to scroll-spy_
 
-- Basic Nav - [Live](https://lucas8.github.io/scroll-spy) - [Source](./example) - [Codesandbox](https://codesandbox.io/s/scroll-spy-demo-pbnnf)
+- Basic Nav - [Live](https://lucas8.github.io/scroll-spy) - [Source](./example)
 
 ## Installation
 
-_Note: This doesn't actually work because the package is not on npm. But feel free to copy the component directory into your own projects_
+_Note: This doesn't actually work because the package is not on npm. But feel free to copy the [components](./src/components) into your own projects_
 
 ```bash
 $ npm i --save scroll-spy
@@ -26,7 +26,7 @@ $ yarn add scroll-spy
 
 To get started, wrap all of the components you want to use with scroll-spy inside of the `<ScrollSpyProvider />`
 
-You are able to pass in [options](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options) to the ScrollSpyProvider which will effect the Intersection Observer.
+You are able to pass in [options](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_options) to the ScrollSpyProvider which will effect the Intersection Observer. The only default value is threshold which is set to 0.5.
 
 ```js
 import React from 'react'
